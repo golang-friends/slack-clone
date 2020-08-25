@@ -10,29 +10,29 @@ service AuthService {
 }
 
 message LoginRequest {
-    string Username = 1;
-    string Email = 2;
-    string Password = 3;
+    string username = 1;
+    string email = 2;
+    string password = 3;
 }
 
 message AuthResponse {
-    string Token = 1;
+    string token = 1;
 }
 
 message RegisterRequest {
-    string Username = 1;
-    string Email = 2;
-    string Password = 3;
+    string username = 1;
+    string email = 2;
+    string password = 3;
 }
 
 message UsernameUsedRequest {
-    string Username = 1;
+    string username = 1;
 }
 
 message EmailUsedRequest {
-    string Email = 1;
+    string email = 1;
 }
 
 message UsedResponse {
-    bool Used = 1;
+    bool used = 1;
 }
