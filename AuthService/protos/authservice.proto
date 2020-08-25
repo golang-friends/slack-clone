@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option go_package = ".;authservice";
+
+service AuthService {
+    rpc Login(LoginRequest) returns (AuthResponse);
+    rpc Register(RegisterRequest) returns (AuthResponse);
+    rpc UsernameUsed(UsernameUsedRequest) returns (UsedResponse);
+    rpc EmailUsed(EmailUsedRequest) returns (UsedResponse);
+}
+
+message LoginRequest {
+    string Username = 1;
+    string Email = 2;
+    string Password = 3;
+}
+
+message AuthResponse {
+    string Token = 1;
+}
+
+message RegisterRequest {
+    string Username = 1;
+    string Email = 2;
+    string Password = 3;
+}
+
+message UsernameUsedRequest {
+    string Username = 1;
+}
+
+message EmailUsedRequest {
+    string Email = 1;
+}
+
+message UsedResponse {
+    bool Used = 1;
+}
