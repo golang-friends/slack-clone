@@ -11,10 +11,10 @@ import (
 )
 
 // NilUser ...
-var NilUser User
+var NilUser UserInMongoDb
 
-// User ...
-type User struct {
+// UserInMongoDb ...
+type UserInMongoDb struct {
 	ID       primitive.ObjectID `bson:"_id"`
 	Username string             `bson:"username"`
 	Password string             `bson:"password"`
@@ -23,7 +23,7 @@ type User struct {
 }
 
 // GetToken ...
-func (u User) GetToken() string {
+func (u UserInMongoDb) GetToken() string {
 	var conf configs.Configuration
 	byteSlc, _ := json.Marshal(u)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
