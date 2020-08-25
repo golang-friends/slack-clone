@@ -1,0 +1,10 @@
+{
+    "listen_interface":"localhost:9000",
+    "database": {
+        "dburi": "Database_URL",
+        "dbname": "Database_Name",
+        "dbuser": "Database_User",
+        "dbpassword": "Database_Password"
+    },
+    "jwt_secret":"SecretHere"
+}

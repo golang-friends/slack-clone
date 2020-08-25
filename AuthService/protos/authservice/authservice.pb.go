@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.21.0-devel
 // 	protoc        v3.11.4
-// source: user-svc.proto
+// source: authservice/authservice.proto
 
-package user_svc
+package authservice
 
 import (
 	context "context"
@@ -34,15 +34,15 @@ type LoginRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Username string `protobuf:"bytes,1,opt,name=Username,proto3" json:"Username,omitempty"`
-	Email    string `protobuf:"bytes,2,opt,name=Email,proto3" json:"Email,omitempty"`
-	Password string `protobuf:"bytes,3,opt,name=Password,proto3" json:"Password,omitempty"`
+	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Email    string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Password string `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 }
 
 func (x *LoginRequest) Reset() {
 	*x = LoginRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_user_svc_proto_msgTypes[0]
+		mi := &file_authservice_authservice_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -55,7 +55,7 @@ func (x *LoginRequest) String() string {
 func (*LoginRequest) ProtoMessage() {}
 
 func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_svc_proto_msgTypes[0]
+	mi := &file_authservice_authservice_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -68,7 +68,7 @@ func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_user_svc_proto_rawDescGZIP(), []int{0}
+	return file_authservice_authservice_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *LoginRequest) GetUsername() string {
@@ -97,13 +97,13 @@ type AuthResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Token string `protobuf:"bytes,1,opt,name=Token,proto3" json:"Token,omitempty"`
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
 }
 
 func (x *AuthResponse) Reset() {
 	*x = AuthResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_user_svc_proto_msgTypes[1]
+		mi := &file_authservice_authservice_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -116,7 +116,7 @@ func (x *AuthResponse) String() string {
 func (*AuthResponse) ProtoMessage() {}
 
 func (x *AuthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_svc_proto_msgTypes[1]
+	mi := &file_authservice_authservice_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -129,7 +129,7 @@ func (x *AuthResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuthResponse.ProtoReflect.Descriptor instead.
 func (*AuthResponse) Descriptor() ([]byte, []int) {
-	return file_user_svc_proto_rawDescGZIP(), []int{1}
+	return file_authservice_authservice_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *AuthResponse) GetToken() string {
@@ -144,15 +144,15 @@ type RegisterRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Username string `protobuf:"bytes,1,opt,name=Username,proto3" json:"Username,omitempty"`
-	Email    string `protobuf:"bytes,2,opt,name=Email,proto3" json:"Email,omitempty"`
-	Password string `protobuf:"bytes,3,opt,name=Password,proto3" json:"Password,omitempty"`
+	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	Email    string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Password string `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 }
 
 func (x *RegisterRequest) Reset() {
 	*x = RegisterRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_user_svc_proto_msgTypes[2]
+		mi := &file_authservice_authservice_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -165,7 +165,7 @@ func (x *RegisterRequest) String() string {
 func (*RegisterRequest) ProtoMessage() {}
 
 func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_svc_proto_msgTypes[2]
+	mi := &file_authservice_authservice_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -178,7 +178,7 @@ func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterRequest.ProtoReflect.Descriptor instead.
 func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return file_user_svc_proto_rawDescGZIP(), []int{2}
+	return file_authservice_authservice_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *RegisterRequest) GetUsername() string {
@@ -207,13 +207,13 @@ type UsernameUsedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Username string `protobuf:"bytes,1,opt,name=Username,proto3" json:"Username,omitempty"`
+	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 }
 
 func (x *UsernameUsedRequest) Reset() {
 	*x = UsernameUsedRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_user_svc_proto_msgTypes[3]
+		mi := &file_authservice_authservice_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -226,7 +226,7 @@ func (x *UsernameUsedRequest) String() string {
 func (*UsernameUsedRequest) ProtoMessage() {}
 
 func (x *UsernameUsedRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_svc_proto_msgTypes[3]
+	mi := &file_authservice_authservice_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -239,7 +239,7 @@ func (x *UsernameUsedRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UsernameUsedRequest.ProtoReflect.Descriptor instead.
 func (*UsernameUsedRequest) Descriptor() ([]byte, []int) {
-	return file_user_svc_proto_rawDescGZIP(), []int{3}
+	return file_authservice_authservice_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *UsernameUsedRequest) GetUsername() string {
@@ -254,13 +254,13 @@ type EmailUsedRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Email string `protobuf:"bytes,1,opt,name=Email,proto3" json:"Email,omitempty"`
+	Email string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 }
 
 func (x *EmailUsedRequest) Reset() {
 	*x = EmailUsedRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_user_svc_proto_msgTypes[4]
+		mi := &file_authservice_authservice_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -273,7 +273,7 @@ func (x *EmailUsedRequest) String() string {
 func (*EmailUsedRequest) ProtoMessage() {}
 
 func (x *EmailUsedRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_svc_proto_msgTypes[4]
+	mi := &file_authservice_authservice_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -286,7 +286,7 @@ func (x *EmailUsedRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EmailUsedRequest.ProtoReflect.Descriptor instead.
 func (*EmailUsedRequest) Descriptor() ([]byte, []int) {
-	return file_user_svc_proto_rawDescGZIP(), []int{4}
+	return file_authservice_authservice_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *EmailUsedRequest) GetEmail() string {
@@ -301,13 +301,13 @@ type UsedResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Used bool `protobuf:"varint,1,opt,name=Used,proto3" json:"Used,omitempty"`
+	Used bool `protobuf:"varint,1,opt,name=used,proto3" json:"used,omitempty"`
 }
 
 func (x *UsedResponse) Reset() {
 	*x = UsedResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_user_svc_proto_msgTypes[5]
+		mi := &file_authservice_authservice_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -320,7 +320,7 @@ func (x *UsedResponse) String() string {
 func (*UsedResponse) ProtoMessage() {}
 
 func (x *UsedResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_svc_proto_msgTypes[5]
+	mi := &file_authservice_authservice_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -333,7 +333,7 @@ func (x *UsedResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UsedResponse.ProtoReflect.Descriptor instead.
 func (*UsedResponse) Descriptor() ([]byte, []int) {
-	return file_user_svc_proto_rawDescGZIP(), []int{5}
+	return file_authservice_authservice_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UsedResponse) GetUsed() bool {
@@ -343,79 +343,91 @@ func (x *UsedResponse) GetUsed() bool {
 	return false
 }
 
-var File_user_svc_proto protoreflect.FileDescriptor
+var File_authservice_authservice_proto protoreflect.FileDescriptor
 
-var file_user_svc_proto_rawDesc = []byte{
-	0x0a, 0x0e, 0x75, 0x73, 0x65, 0x72, 0x2d, 0x73, 0x76, 0x63, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x22, 0x5c, 0x0a, 0x0c, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x12, 0x1a, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x08, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05,
-	0x45, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x6d, 0x61,
-	0x69, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0x24,
-	0x0a, 0x0c, 0x41, 0x75, 0x74, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14,
-	0x0a, 0x05, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x54,
-	0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x5f, 0x0a, 0x0f, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x6e,
-	0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x55, 0x73, 0x65, 0x72, 0x6e,
-	0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x05, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x50, 0x61, 0x73,
-	0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x50, 0x61, 0x73,
-	0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0x31, 0x0a, 0x13, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d,
-	0x65, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08,
-	0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
-	0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x28, 0x0a, 0x10, 0x45, 0x6d, 0x61, 0x69,
-	0x6c, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05,
-	0x45, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x6d, 0x61,
-	0x69, 0x6c, 0x22, 0x22, 0x0a, 0x0c, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08,
-	0x52, 0x04, 0x55, 0x73, 0x65, 0x64, 0x32, 0xc5, 0x01, 0x0a, 0x0b, 0x41, 0x75, 0x74, 0x68, 0x53,
-	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x25, 0x0a, 0x05, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x12,
-	0x0d, 0x2e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d,
-	0x2e, 0x41, 0x75, 0x74, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a,
-	0x08, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x12, 0x10, 0x2e, 0x52, 0x65, 0x67, 0x69,
-	0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0d, 0x2e, 0x41, 0x75,
-	0x74, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x33, 0x0a, 0x0c, 0x55, 0x73,
-	0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x55, 0x73, 0x65, 0x64, 0x12, 0x14, 0x2e, 0x55, 0x73, 0x65,
-	0x72, 0x6e, 0x61, 0x6d, 0x65, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x0d, 0x2e, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x2d, 0x0a, 0x09, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x55, 0x73, 0x65, 0x64, 0x12, 0x11, 0x2e, 0x45,
-	0x6d, 0x61, 0x69, 0x6c, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x0d, 0x2e, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x0c,
-	0x5a, 0x0a, 0x2e, 0x3b, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x76, 0x63, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+var file_authservice_authservice_proto_rawDesc = []byte{
+	0x0a, 0x1d, 0x61, 0x75, 0x74, 0x68, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2f, 0x61, 0x75,
+	0x74, 0x68, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
+	0x12, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x22, 0x5c, 0x0a, 0x0c, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x12,
+	0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72,
+	0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72,
+	0x64, 0x22, 0x24, 0x0a, 0x0c, 0x41, 0x75, 0x74, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x5f, 0x0a, 0x0f, 0x52, 0x65, 0x67, 0x69, 0x73,
+	0x74, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x75, 0x73,
+	0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x73,
+	0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a, 0x08,
+	0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0x31, 0x0a, 0x13, 0x55, 0x73, 0x65, 0x72,
+	0x6e, 0x61, 0x6d, 0x65, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x1a, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x28, 0x0a, 0x10, 0x45,
+	0x6d, 0x61, 0x69, 0x6c, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x65, 0x6d, 0x61, 0x69, 0x6c, 0x22, 0x22, 0x0a, 0x0c, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x08, 0x52, 0x04, 0x75, 0x73, 0x65, 0x64, 0x32, 0xdd, 0x02, 0x0a, 0x0b, 0x41, 0x75,
+	0x74, 0x68, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x4b, 0x0a, 0x05, 0x4c, 0x6f, 0x67,
+	0x69, 0x6e, 0x12, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x75, 0x74, 0x68,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x75,
+	0x74, 0x68, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x41, 0x75, 0x74, 0x68, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x51, 0x0a, 0x08, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74,
+	0x65, 0x72, 0x12, 0x23, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x75, 0x74, 0x68,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73,
+	0x2e, 0x61, 0x75, 0x74, 0x68, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x41, 0x75, 0x74,
+	0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x59, 0x0a, 0x0c, 0x55, 0x73, 0x65,
+	0x72, 0x6e, 0x61, 0x6d, 0x65, 0x55, 0x73, 0x65, 0x64, 0x12, 0x27, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x73, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55,
+	0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x75, 0x74, 0x68,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x73, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x53, 0x0a, 0x09, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x55, 0x73, 0x65,
+	0x64, 0x12, 0x24, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x55, 0x73, 0x65, 0x64,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73,
+	0x2e, 0x61, 0x75, 0x74, 0x68, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x73, 0x65,
+	0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x0f, 0x5a, 0x0d, 0x2e, 0x3b, 0x61,
+	0x75, 0x74, 0x68, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
-	file_user_svc_proto_rawDescOnce sync.Once
-	file_user_svc_proto_rawDescData = file_user_svc_proto_rawDesc
+	file_authservice_authservice_proto_rawDescOnce sync.Once
+	file_authservice_authservice_proto_rawDescData = file_authservice_authservice_proto_rawDesc
 )
 
-func file_user_svc_proto_rawDescGZIP() []byte {
-	file_user_svc_proto_rawDescOnce.Do(func() {
-		file_user_svc_proto_rawDescData = protoimpl.X.CompressGZIP(file_user_svc_proto_rawDescData)
+func file_authservice_authservice_proto_rawDescGZIP() []byte {
+	file_authservice_authservice_proto_rawDescOnce.Do(func() {
+		file_authservice_authservice_proto_rawDescData = protoimpl.X.CompressGZIP(file_authservice_authservice_proto_rawDescData)
 	})
-	return file_user_svc_proto_rawDescData
+	return file_authservice_authservice_proto_rawDescData
 }
 
-var file_user_svc_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
-var file_user_svc_proto_goTypes = []interface{}{
-	(*LoginRequest)(nil),        // 0: LoginRequest
-	(*AuthResponse)(nil),        // 1: AuthResponse
-	(*RegisterRequest)(nil),     // 2: RegisterRequest
-	(*UsernameUsedRequest)(nil), // 3: UsernameUsedRequest
-	(*EmailUsedRequest)(nil),    // 4: EmailUsedRequest
-	(*UsedResponse)(nil),        // 5: UsedResponse
+var file_authservice_authservice_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_authservice_authservice_proto_goTypes = []interface{}{
+	(*LoginRequest)(nil),        // 0: protos.authservice.LoginRequest
+	(*AuthResponse)(nil),        // 1: protos.authservice.AuthResponse
+	(*RegisterRequest)(nil),     // 2: protos.authservice.RegisterRequest
+	(*UsernameUsedRequest)(nil), // 3: protos.authservice.UsernameUsedRequest
+	(*EmailUsedRequest)(nil),    // 4: protos.authservice.EmailUsedRequest
+	(*UsedResponse)(nil),        // 5: protos.authservice.UsedResponse
 }
-var file_user_svc_proto_depIdxs = []int32{
-	0, // 0: AuthService.Login:input_type -> LoginRequest
-	2, // 1: AuthService.Register:input_type -> RegisterRequest
-	3, // 2: AuthService.UsernameUsed:input_type -> UsernameUsedRequest
-	4, // 3: AuthService.EmailUsed:input_type -> EmailUsedRequest
-	1, // 4: AuthService.Login:output_type -> AuthResponse
-	1, // 5: AuthService.Register:output_type -> AuthResponse
-	5, // 6: AuthService.UsernameUsed:output_type -> UsedResponse
-	5, // 7: AuthService.EmailUsed:output_type -> UsedResponse
+var file_authservice_authservice_proto_depIdxs = []int32{
+	0, // 0: protos.authservice.AuthService.Login:input_type -> protos.authservice.LoginRequest
+	2, // 1: protos.authservice.AuthService.Register:input_type -> protos.authservice.RegisterRequest
+	3, // 2: protos.authservice.AuthService.UsernameUsed:input_type -> protos.authservice.UsernameUsedRequest
+	4, // 3: protos.authservice.AuthService.EmailUsed:input_type -> protos.authservice.EmailUsedRequest
+	1, // 4: protos.authservice.AuthService.Login:output_type -> protos.authservice.AuthResponse
+	1, // 5: protos.authservice.AuthService.Register:output_type -> protos.authservice.AuthResponse
+	5, // 6: protos.authservice.AuthService.UsernameUsed:output_type -> protos.authservice.UsedResponse
+	5, // 7: protos.authservice.AuthService.EmailUsed:output_type -> protos.authservice.UsedResponse
 	4, // [4:8] is the sub-list for method output_type
 	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -423,13 +435,13 @@ var file_user_svc_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_user_svc_proto_init() }
-func file_user_svc_proto_init() {
-	if File_user_svc_proto != nil {
+func init() { file_authservice_authservice_proto_init() }
+func file_authservice_authservice_proto_init() {
+	if File_authservice_authservice_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_user_svc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_authservice_authservice_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LoginRequest); i {
 			case 0:
 				return &v.state
@@ -441,7 +453,7 @@ func file_user_svc_proto_init() {
 				return nil
 			}
 		}
-		file_user_svc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_authservice_authservice_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AuthResponse); i {
 			case 0:
 				return &v.state
@@ -453,7 +465,7 @@ func file_user_svc_proto_init() {
 				return nil
 			}
 		}
-		file_user_svc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_authservice_authservice_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RegisterRequest); i {
 			case 0:
 				return &v.state
@@ -465,7 +477,7 @@ func file_user_svc_proto_init() {
 				return nil
 			}
 		}
-		file_user_svc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_authservice_authservice_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UsernameUsedRequest); i {
 			case 0:
 				return &v.state
@@ -477,7 +489,7 @@ func file_user_svc_proto_init() {
 				return nil
 			}
 		}
-		file_user_svc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_authservice_authservice_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EmailUsedRequest); i {
 			case 0:
 				return &v.state
@@ -489,7 +501,7 @@ func file_user_svc_proto_init() {
 				return nil
 			}
 		}
-		file_user_svc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_authservice_authservice_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UsedResponse); i {
 			case 0:
 				return &v.state
@@ -506,20 +518,20 @@ func file_user_svc_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_user_svc_proto_rawDesc,
+			RawDescriptor: file_authservice_authservice_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_user_svc_proto_goTypes,
-		DependencyIndexes: file_user_svc_proto_depIdxs,
-		MessageInfos:      file_user_svc_proto_msgTypes,
+		GoTypes:           file_authservice_authservice_proto_goTypes,
+		DependencyIndexes: file_authservice_authservice_proto_depIdxs,
+		MessageInfos:      file_authservice_authservice_proto_msgTypes,
 	}.Build()
-	File_user_svc_proto = out.File
-	file_user_svc_proto_rawDesc = nil
-	file_user_svc_proto_goTypes = nil
-	file_user_svc_proto_depIdxs = nil
+	File_authservice_authservice_proto = out.File
+	file_authservice_authservice_proto_rawDesc = nil
+	file_authservice_authservice_proto_goTypes = nil
+	file_authservice_authservice_proto_depIdxs = nil
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -550,7 +562,7 @@ func NewAuthServiceClient(cc grpc.ClientConnInterface) AuthServiceClient {
 
 func (c *authServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AuthResponse, error) {
 	out := new(AuthResponse)
-	err := c.cc.Invoke(ctx, "/AuthService/Login", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/protos.authservice.AuthService/Login", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -559,7 +571,7 @@ func (c *authServiceClient) Login(ctx context.Context, in *LoginRequest, opts ..
 
 func (c *authServiceClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*AuthResponse, error) {
 	out := new(AuthResponse)
-	err := c.cc.Invoke(ctx, "/AuthService/Register", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/protos.authservice.AuthService/Register", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -568,7 +580,7 @@ func (c *authServiceClient) Register(ctx context.Context, in *RegisterRequest, o
 
 func (c *authServiceClient) UsernameUsed(ctx context.Context, in *UsernameUsedRequest, opts ...grpc.CallOption) (*UsedResponse, error) {
 	out := new(UsedResponse)
-	err := c.cc.Invoke(ctx, "/AuthService/UsernameUsed", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/protos.authservice.AuthService/UsernameUsed", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -577,7 +589,7 @@ func (c *authServiceClient) UsernameUsed(ctx context.Context, in *UsernameUsedRe
 
 func (c *authServiceClient) EmailUsed(ctx context.Context, in *EmailUsedRequest, opts ...grpc.CallOption) (*UsedResponse, error) {
 	out := new(UsedResponse)
-	err := c.cc.Invoke(ctx, "/AuthService/EmailUsed", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/protos.authservice.AuthService/EmailUsed", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -623,7 +635,7 @@ func _AuthService_Login_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/AuthService/Login",
+		FullMethod: "/protos.authservice.AuthService/Login",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServiceServer).Login(ctx, req.(*LoginRequest))
@@ -641,7 +653,7 @@ func _AuthService_Register_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/AuthService/Register",
+		FullMethod: "/protos.authservice.AuthService/Register",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServiceServer).Register(ctx, req.(*RegisterRequest))
@@ -659,7 +671,7 @@ func _AuthService_UsernameUsed_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/AuthService/UsernameUsed",
+		FullMethod: "/protos.authservice.AuthService/UsernameUsed",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServiceServer).UsernameUsed(ctx, req.(*UsernameUsedRequest))
@@ -677,7 +689,7 @@ func _AuthService_EmailUsed_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/AuthService/EmailUsed",
+		FullMethod: "/protos.authservice.AuthService/EmailUsed",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServiceServer).EmailUsed(ctx, req.(*EmailUsedRequest))
@@ -686,7 +698,7 @@ func _AuthService_EmailUsed_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 var _AuthService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "AuthService",
+	ServiceName: "protos.authservice.AuthService",
 	HandlerType: (*AuthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -707,5 +719,5 @@ var _AuthService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "user-svc.proto",
+	Metadata: "authservice/authservice.proto",
 }
