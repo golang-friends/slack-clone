@@ -6,6 +6,5 @@
         "dbuser": "Database_User",
         "dbpassword": "Database_Password"
     },
-    "jwt_secret":"SecretHere",
-    "perf": 100
+    "jwt_secret":"SecretHere"
 }
