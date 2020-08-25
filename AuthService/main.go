@@ -7,7 +7,7 @@ import (
 	"github.com/golang-friends/slack-clone/AuthService/cmd/authservice"
 	"github.com/golang-friends/slack-clone/AuthService/configs"
 	"github.com/golang-friends/slack-clone/AuthService/models"
-	pb "github.com/golang-friends/slack-clone/AuthService/protos"
+	pb "github.com/golang-friends/slack-clone/AuthService/protos/authservice"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
