@@ -7,7 +7,7 @@ import (
 	"regexp"
 
 	"github.com/golang-friends/slack-clone/AuthService/models"
-	pb "github.com/golang-friends/slack-clone/AuthService/protos"
+	pb "github.com/golang-friends/slack-clone/AuthService/protos/authservice"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
@@ -20,7 +20,7 @@ type AuthServer struct {
 // Login checks db for user info and returns a auth token
 func (as *AuthServer) Login(ctx context.Context, in *pb.LoginRequest) (*pb.AuthResponse, error) {
 	username, email, password := in.GetUsername(), in.GetEmail(), in.GetPassword()
-	var user models.User
+	var user models.UserInMongoDb
 	models.Db.Collection("user").FindOne(ctx, bson.M{"$or": []bson.M{bson.M{"username": username}, bson.M{"email": email}}}).Decode(&user)
 	if user == models.NilUser {
 		return &pb.AuthResponse{}, errors.New("Wrong credentials provided")
@@ -67,7 +67,7 @@ func (as *AuthServer) Register(ctx context.Context, in *pb.RegisterRequest) (*pb
 	}
 
 	pw, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-	newUser := models.User{ID: primitive.NewObjectID(), Username: username, Email: email, Password: string(pw)}
+	newUser := models.UserInMongoDb{ID: primitive.NewObjectID(), Username: username, Email: email, Password: string(pw)}
 
 	_, err = models.Db.Collection("user").InsertOne(context.Background(), newUser)
 	if err != nil {
@@ -80,7 +80,7 @@ func (as *AuthServer) Register(ctx context.Context, in *pb.RegisterRequest) (*pb
 // UsernameUsed ...
 func (as *AuthServer) UsernameUsed(ctx context.Context, in *pb.UsernameUsedRequest) (*pb.UsedResponse, error) {
 	username := in.GetUsername()
-	var result models.User
+	var result models.UserInMongoDb
 	models.Db.Collection("user").FindOne(ctx, bson.M{"username": username}).Decode(&result)
 	return &pb.UsedResponse{Used: result != models.NilUser}, nil
 }
@@ -88,7 +88,7 @@ func (as *AuthServer) UsernameUsed(ctx context.Context, in *pb.UsernameUsedReque
 // EmailUsed ...
 func (as *AuthServer) EmailUsed(ctx context.Context, in *pb.EmailUsedRequest) (*pb.UsedResponse, error) {
 	email := in.GetEmail()
-	var result models.User
+	var result models.UserInMongoDb
 	models.Db.Collection("user").FindOne(ctx, bson.M{"email": email}).Decode(&result)
 	return &pb.UsedResponse{Used: result != models.NilUser}, nil
 }
