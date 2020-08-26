@@ -4,10 +4,10 @@ import (
 	"log"
 	"net"
 
-	"github.com/golang-friends/slack-clone/AuthService/cmd/authservice"
-	"github.com/golang-friends/slack-clone/AuthService/configs"
-	"github.com/golang-friends/slack-clone/AuthService/models"
-	pb "github.com/golang-friends/slack-clone/AuthService/protos/authservice"
+	"github.com/golang-friends/slack-clone/authservice/cmd/authservice"
+	"github.com/golang-friends/slack-clone/authservice/configs"
+	"github.com/golang-friends/slack-clone/authservice/models"
+	pb "github.com/golang-friends/slack-clone/authservice/protos/authservice"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/golang-friends/slack-clone/AuthService/models"
-	pb "github.com/golang-friends/slack-clone/AuthService/protos/authservice"
+	"github.com/golang-friends/slack-clone/authservice/models"
+	pb "github.com/golang-friends/slack-clone/authservice/protos/authservice"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 )
