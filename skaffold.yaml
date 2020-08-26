@@ -1,0 +1,10 @@
+apiVersion: skaffold/v2beta6
+kind: Config
+metadata:
+  name: slack-clone
+build:
+  artifacts:
+  - image: auth
+    context: AuthService
+deploy:
+  kustomize: {}

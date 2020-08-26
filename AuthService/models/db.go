@@ -34,7 +34,9 @@ func ConnectToDB(conf configs.Configuration) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(fmt.Sprintf("mongodb+srv://%s:%s@%s", db.DBUser, db.DBPassword, db.DBURI)))
+	mongoURI := fmt.Sprintf("mongodb://%s:%s@%s", db.DBUser, db.DBPassword, db.DBURI)
+	log.Printf("mongoURI = %v", mongoURI)
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoURI))
 	if err != nil {
 		log.Fatal("Error connecting to DB: ", err.Error())
 	}
