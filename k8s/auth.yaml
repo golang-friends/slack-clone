@@ -6,10 +6,10 @@ spec:
   selector:
     app: auth
   ports:
-  - port: 9000
-    targetPort: grpc
-    name: grpc
-    nodePort: 30000
+    - port: 9000
+      targetPort: grpc
+      name: grpc
+      nodePort: 30000
   type: NodePort
 ---
 apiVersion: apps/v1
@@ -28,10 +28,10 @@ spec:
       volumes:
         - name: auth-config-vm
           configMap:
-              name: auth-config-map
-              items:
-                - key: config.sample.json
-                  path: config.json
+            name: auth-config-map
+            items:
+              - key: config.sample.json
+                path: config.json
       containers:
         - name: auth
           image: auth
