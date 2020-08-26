@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  auth:
+    build:
+      context: ./AuthService
+    volumes:
+      - ./AuthService/config.sample.json:/app/config.json
+    ports:
+      - 9000:9000
+  auth-db:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=auth
