@@ -47,12 +47,21 @@ func Test_authServer_UsernameUsed(t *testing.T) {
 	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
 
 	server := AuthServer{}
-	_, err := server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "incidrthreat"})
+	exists, err := server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "incidrthreat"})
+	// 1. Server responded with an error
 	if err != nil {
 		t.Error("1. An error was returned: ", err.Error())
 	}
-	if err == nil {
-		t.Error("2. Error was nil")
+	// 2. Our username exists, Server should have responded true
+	if exists.Used == false {
+		t.Error("2. Username is used, should have returned true")
+	}
+
+	doesNotExist, err := server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "test-user"})
+
+	// 3. Our username does not exist, Server should have responded false
+	if doesNotExist.Used {
+		t.Error("3. User name is not used, should have returned false")
 	}
 
 }
