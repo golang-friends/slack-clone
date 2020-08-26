@@ -1,4 +1,4 @@
-module github.com/golang-friends/slack-clone/AuthService
+module github.com/golang-friends/slack-clone/authservice
 
 go 1.15
 

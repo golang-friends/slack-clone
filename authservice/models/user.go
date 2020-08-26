@@ -5,7 +5,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	"github.com/golang-friends/slack-clone/AuthService/configs"
+	"github.com/golang-friends/slack-clone/authservice/configs"
 
 	"github.com/dgrijalva/jwt-go"
 )
