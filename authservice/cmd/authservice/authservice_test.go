@@ -10,11 +10,19 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func Test_authServer_Login(t *testing.T) {
+// Helper method to insert a temp user
+func insertTempUser(t *testing.T, username, email, password string) {
+	t.Helper()
 	// Connect and create temp user, email, and password
 	models.ConnectToTestDB()
-	pw, _ := bcrypt.GenerateFromPassword([]byte("incidrthreatpass"), bcrypt.DefaultCost)
-	models.Db.Collection("user").InsertOne(context.Background(), models.UserInMongoDb{ID: primitive.NewObjectID(), Email: "incidrthreat@gmail.com", Username: "incidrthreat", Password: string(pw)})
+	pw, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	models.Db.Collection("user").InsertOne(context.Background(), models.UserInMongoDb{ID: primitive.NewObjectID(), Email: email, Username: username, Password: string(pw)})
+}
+
+func Test_authServer_Login(t *testing.T) {
+
+	// Insert our temp user
+	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
 
 	server := AuthServer{}
 	_, err := server.Login(context.Background(), &pb.LoginRequest{Username: "incidrthreat", Email: "incidrthreat@gmail.com", Password: "incidrthreatpass"})
@@ -31,6 +39,22 @@ func Test_authServer_Login(t *testing.T) {
 	if err != nil {
 		t.Error("3. An error was returned: ", err.Error())
 	}
+}
+
+func Test_authServer_UsernameUsed(t *testing.T) {
+
+	// Insert our temp user
+	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
+
+	server := AuthServer{}
+	_, err := server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "incidrthreat"})
+	if err != nil {
+		t.Error("1. An error was returned: ", err.Error())
+	}
+	if err == nil {
+		t.Error("2. Error was nil")
+	}
+
 }
 
 // TODO
