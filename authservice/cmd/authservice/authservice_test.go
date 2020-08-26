@@ -31,27 +31,42 @@ func Test_authServer_Login(t *testing.T) {
 	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass", mongoServer.URIWithRandomDB())
 
 	server := AuthServer{}
-
-	// Username, email, and password correct
-	_, err = server.Login(context.Background(), &pb.LoginRequest{Username: "incidrthreat", Email: "incidrthreat@gmail.com", Password: "incidrthreatpass"})
+	_, err = server.Login(context.Background(), &pb.LoginRequest{
+		User: &pb.User{
+			Username: "incidrthreat",
+			Email:    "incidrthreat@gmail.com",
+			Password: "incidrthreatpass",
+		}})
 	if err != nil {
 		t.Error("1. An error was returned: ", err.Error())
 	}
 
-	// Username with wrong password
-	_, err = server.Login(context.Background(), &pb.LoginRequest{Username: "incidrthreat", Password: "notincidrthreatpass"})
+	_, err = server.Login(context.Background(), &pb.LoginRequest{
+		User: &pb.User{
+			Username: "incidrthreat@gmail.com",
+			Password: "notincidrthreatpass",
+		}})
 	if err == nil {
 		t.Error("2. Password should be incorrect")
 	}
 
-	// Email login with correct password
-	_, err = server.Login(context.Background(), &pb.LoginRequest{Email: "incidrthreat@gmail.com", Password: "incidrthreatpass"})
+	_, err = server.Login(context.Background(), &pb.LoginRequest{
+		User: &pb.User{
+			Username: "incidrthreat",
+			Password: "incidrthreatpass",
+		}})
 	if err != nil {
 		t.Error("3. An error was returned: ", err.Error())
 	}
 
 	// Wrong Email with correct password
-	_, err = server.Login(context.Background(), &pb.LoginRequest{Email: "notincidrthreat@gmail.com", Password: "incidrthreatpass"})
+	_, err = server.Login(context.Background(), &pb.LoginRequest{
+		User: &pb.User{
+			Email:    "notincidrthreat@gmail.com",
+			Password: "incidrthreatpass",
+		},
+	},
+	)
 	if err == nil {
 		t.Error("4. Email should be incorrect and return an error.")
 	}

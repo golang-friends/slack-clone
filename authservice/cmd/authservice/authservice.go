@@ -26,7 +26,8 @@ func NewAuthServer(config configs.Configuration) *AuthServer {
 }
 
 // Login checks db for user info and returns a auth token
-func (as *AuthServer) Login(ctx context.Context, in *pb.LoginRequest) (*pb.AuthResponse, error) {
+func (as *AuthServer) Login(ctx context.Context, req *pb.LoginRequest) (*pb.AuthResponse, error) {
+	in := req.GetUser()
 	username, email, password := in.GetUsername(), in.GetEmail(), in.GetPassword()
 	var user models.UserInMongoDb
 	models.Db.Collection("user").FindOne(ctx, bson.M{"$or": []bson.M{bson.M{"username": username}, bson.M{"email": email}}}).Decode(&user)
@@ -37,11 +38,12 @@ func (as *AuthServer) Login(ctx context.Context, in *pb.LoginRequest) (*pb.AuthR
 		return &pb.AuthResponse{}, errors.New("Wrong credentials provided")
 	}
 
-	return &pb.AuthResponse{Token: user.GetToken([]byte(as.config.JWTData.Secret), as.config.JWTData.ExpiryTime)}, nil
+	return &pb.AuthResponse{Token: user.GetToken([]byte(as.config.JWTData.Secret), as.config.JWTData.GetExpiryDuration())}, nil
 }
 
 // Register ...
-func (as *AuthServer) Register(ctx context.Context, in *pb.RegisterRequest) (*pb.AuthResponse, error) {
+func (as *AuthServer) Register(ctx context.Context, req *pb.RegisterRequest) (*pb.AuthResponse, error) {
+	in := req.GetUser()
 	username, password, email := in.GetUsername(), in.GetPassword(), in.GetEmail()
 	emailRegEx, _ := regexp.MatchString("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", email)
 	if !emailRegEx {
@@ -81,8 +83,8 @@ func (as *AuthServer) Register(ctx context.Context, in *pb.RegisterRequest) (*pb
 	if err != nil {
 		log.Println("Error insterting new user: ", err.Error())
 	}
-	return &pb.AuthResponse{Token: newUser.GetToken([]byte(as.config.JWTData.Secret), as.config.JWTData.ExpiryTime)}, nil
 
+	return &pb.AuthResponse{Token: newUser.GetToken([]byte(as.config.JWTData.Secret), as.config.JWTData.GetExpiryDuration())}, nil
 }
 
 // UsernameUsed ...

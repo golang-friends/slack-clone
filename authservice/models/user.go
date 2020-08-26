@@ -4,8 +4,10 @@ import (
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-friends/slack-clone/authservice/protos/authservice"
 )
 
 // NilUser ...0
@@ -21,13 +23,24 @@ type UserInMongoDb struct {
 }
 
 // GetToken ...
-func (u UserInMongoDb) GetToken(jwtSecret []byte, expiry int) string {
+func (u UserInMongoDb) GetToken(jwtSecret []byte, expiry time.Duration) string {
+	byteSlc, _ := proto.Marshal(u.ToUserProto())
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user":  u.Username,
-		"admin": u.Admin,
-		"exp":   time.Now().Add(time.Minute * time.Duration(expiry)).Unix(),
+		"user": string(byteSlc),
+		"exp":  time.Now().Add(expiry).Unix(),
 	})
 
 	tokenString, _ := token.SignedString(jwtSecret)
 	return tokenString
+}
+
+// ToUserProto is a convenient method to convert to UserProto.
+func (u UserInMongoDb) ToUserProto() *authservice.User {
+	return &authservice.User{
+		Id:       u.ID.Hex(),
+		Username: u.Username,
+		Email:    u.Email,
+		Admin:    u.Admin,
+	}
 }
