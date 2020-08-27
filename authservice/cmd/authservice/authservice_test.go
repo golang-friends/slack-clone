@@ -47,20 +47,24 @@ func Test_authServer_UsernameUsed(t *testing.T) {
 	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
 
 	server := AuthServer{}
-	exists, err := server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "incidrthreat"})
+
+	res, err := server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "incidrthreat"})
 	// 1. Server responded with an error
 	if err != nil {
 		t.Error("1. An error was returned: ", err.Error())
 	}
 	// 2. Our username exists, If the server responded [true] which it shouldn't.. the test fails
-	if !exists.GetUsed() {
+	if !res.GetUsed() {
 		t.Error("2. Username is used, should have returned true")
 	}
 
-	doesNotExist, err := server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "test-user"})
-
+	res, err = server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "testUser"})
+	// 3. Server responded with an error
+	if err != nil {
+		t.Error("3. An error was returned: ", err.Error())
+	}
 	// 3. Our username does not exist, If the server responded [false] which it shouldn't.. the test fails
-	if doesNotExist.GetUsed() {
+	if res.GetUsed() {
 		t.Error("3. User name is not used, should have returned false")
 	}
 
@@ -68,6 +72,5 @@ func Test_authServer_UsernameUsed(t *testing.T) {
 
 // TODO
 
-// Test UsernameUsed
 // Test EmailUsed
 // Test Register
