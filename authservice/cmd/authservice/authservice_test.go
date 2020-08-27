@@ -52,15 +52,15 @@ func Test_authServer_UsernameUsed(t *testing.T) {
 	if err != nil {
 		t.Error("1. An error was returned: ", err.Error())
 	}
-	// 2. Our username exists, Server should have responded true
-	if exists.Used == false {
+	// 2. Our username exists, If the server responded [true] which it shouldn't.. the test fails
+	if !exists.GetUsed() {
 		t.Error("2. Username is used, should have returned true")
 	}
 
 	doesNotExist, err := server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "test-user"})
 
-	// 3. Our username does not exist, Server should have responded false
-	if doesNotExist.Used {
+	// 3. Our username does not exist, If the server responded [false] which it shouldn't.. the test fails
+	if doesNotExist.GetUsed() {
 		t.Error("3. User name is not used, should have returned false")
 	}
 
