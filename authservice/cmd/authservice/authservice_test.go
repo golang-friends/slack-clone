@@ -10,11 +10,19 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func Test_authServer_Login(t *testing.T) {
+// Helper method to insert a temp user
+func insertTempUser(t *testing.T, username, email, password string) {
+	t.Helper()
 	// Connect and create temp user, email, and password
 	models.ConnectToTestDB()
-	pw, _ := bcrypt.GenerateFromPassword([]byte("incidrthreatpass"), bcrypt.DefaultCost)
-	models.Db.Collection("user").InsertOne(context.Background(), models.UserInMongoDb{ID: primitive.NewObjectID(), Email: "incidrthreat@gmail.com", Username: "incidrthreat", Password: string(pw)})
+	pw, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	models.Db.Collection("user").InsertOne(context.Background(), models.UserInMongoDb{ID: primitive.NewObjectID(), Email: email, Username: username, Password: string(pw)})
+}
+
+func Test_authServer_Login(t *testing.T) {
+
+	// Insert our temp user
+	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
 
 	server := AuthServer{}
 	_, err := server.Login(context.Background(), &pb.LoginRequest{Username: "incidrthreat", Email: "incidrthreat@gmail.com", Password: "incidrthreatpass"})
@@ -33,8 +41,36 @@ func Test_authServer_Login(t *testing.T) {
 	}
 }
 
+func Test_authServer_UsernameUsed(t *testing.T) {
+
+	// Insert our temp user
+	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
+
+	server := AuthServer{}
+
+	res, err := server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "incidrthreat"})
+	// 1. Server responded with an error
+	if err != nil {
+		t.Error("1. An error was returned: ", err.Error())
+	}
+	// 2. Our username exists, If the server responded [true] which it shouldn't.. the test fails
+	if !res.GetUsed() {
+		t.Error("2. Username is used, should have returned true")
+	}
+
+	res, err = server.UsernameUsed(context.Background(), &pb.UsernameUsedRequest{Username: "testUser"})
+	// 3. Server responded with an error
+	if err != nil {
+		t.Error("3. An error was returned: ", err.Error())
+	}
+	// 3. Our username does not exist, If the server responded [false] which it shouldn't.. the test fails
+	if res.GetUsed() {
+		t.Error("3. User name is not used, should have returned false")
+	}
+
+}
+
 // TODO
 
-// Test UsernameUsed
 // Test EmailUsed
 // Test Register
