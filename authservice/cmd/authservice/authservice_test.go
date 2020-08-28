@@ -53,7 +53,7 @@ func Test_authServer_UsernameUsed(t *testing.T) {
 	if err != nil {
 		t.Error("1. An error was returned: ", err.Error())
 	}
-	// 2. Our username exists, If the server responded [true] which it shouldn't.. the test fails
+	// 2. Our username exists, If the server responded [false] which it shouldn't.. the test fails
 	if !res.GetUsed() {
 		t.Error("2. Username is used, should have returned true")
 	}
@@ -63,7 +63,7 @@ func Test_authServer_UsernameUsed(t *testing.T) {
 	if err != nil {
 		t.Error("3. An error was returned: ", err.Error())
 	}
-	// 3. Our username does not exist, If the server responded [false] which it shouldn't.. the test fails
+	// 3. Our username does not exist, If the server responded [true] which it shouldn't.. the test fails
 	if res.GetUsed() {
 		t.Error("3. User name is not used, should have returned false")
 	}
