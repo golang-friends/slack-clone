@@ -150,7 +150,7 @@ func Test_authService_Register(t *testing.T) {
 		t.Error("3. An error was returned")
 	}
 	// Testing: Invalid Username
-	_, err = server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreatTEST3@gmail.com", Username: "incidrTEST3", Password: "incidrthreatpass"})
+	_, err = server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreatTEST3@gmail.com", Username: "inc", Password: "incidrthreatpass"})
 	// We entered an invalid username, server should have responded with an error
 	if err.Error() != "Username must be longer than 4 characters" {
 		t.Error("4. An error was returned")
