@@ -1,4 +1,4 @@
-name: Check AuthService
+name: AuthService Check
 
 on:
   push:
