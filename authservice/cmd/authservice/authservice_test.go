@@ -169,7 +169,7 @@ func Test_authService_Register(t *testing.T) {
 	// Check that the token is not empty
 	if res.GetToken() != "" {
 		// Check that the token matches our regex
-		tokenRegEx, _ := regexp.MatchString("^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$", res.Token)
+		tokenRegEx, _ := regexp.MatchString("^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$", res.GetToken())
 		if !tokenRegEx {
 			t.Error("7. Invalid token returned")
 		}
