@@ -6,5 +6,8 @@
     "dbuser": "root",
     "dbpassword": "password"
   },
-  "jwt_secret": "jwt-secret"
+  "jwt": {
+    "secret":"jwt-secret",
+    "expiry_time": 30
+  }
 }
