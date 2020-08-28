@@ -90,7 +90,38 @@ func Test_authServer_UsernameUsed(t *testing.T) {
 
 }
 
+func Test_authServer_EmailUsed(t *testing.T) {
+	// InMemroy MongoDB
+	mongoServer, err := memongo.Start("4.0.5")
+	assert.NoError(t, err)
+	defer mongoServer.Stop()
+
+	// Insert our temp user
+	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass", mongoServer.URIWithRandomDB())
+	server := AuthServer{}
+
+	res, err := server.EmailUsed(context.Background(), &pb.EmailUsedRequest{Email: "incidrthreat@gmail.com"})
+	// 1. Server responded with an error
+	if err != nil {
+		t.Error("1. An error was returned: ", err.Error())
+	}
+	// 2. Our email exists, If the server responded [false] which it shouldn't.. the test fails
+	if !res.GetUsed() {
+		t.Error("2. Username is used, should have returned true")
+	}
+
+	res, err = server.EmailUsed(context.Background(), &pb.EmailUsedRequest{Email: "incidrthreat_TEST@gmail.com"})
+	// 3. Server responded with an error
+	if err != nil {
+		t.Error("3. An error was returned: ", err.Error())
+	}
+	// 3. Our email does not exist, If the server responded [true] which it shouldn't.. the test fails
+	if res.GetUsed() {
+		t.Error("3. User name is not used, should have returned false")
+	}
+
+}
+
 // TODO
 
-// Test EmailUsed
 // Test Register
