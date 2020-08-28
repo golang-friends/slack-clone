@@ -2,6 +2,9 @@ name: AuthService Check
 
 on:
   push:
+    paths-ignore:
+      - "README.md"
+      - "LICENSE"
     branches:
       - master
   pull_request:
