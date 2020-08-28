@@ -41,10 +41,10 @@ func ConnectToDB(conf configs.Configuration) {
 	Db = *client.Database(db.DBName)
 }
 
-// ConnectToTestDB ..
-func ConnectToTestDB() {
+// ConnectToTestDB takes in a url string for testing purposes
+func ConnectToTestDB(url string) {
 	ctx := context.Background()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(fmt.Sprintf("mongodb+srv://username:password@url")))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(url))
 	if err != nil {
 		log.Fatal("Error connecting to DB: ", err.Error())
 	}
