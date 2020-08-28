@@ -4,8 +4,10 @@ import (
 	"context"
 	"testing"
 
+	"github.com/benweissmann/memongo"
 	"github.com/golang-friends/slack-clone/authservice/models"
 	pb "github.com/golang-friends/slack-clone/authservice/protos/authservice"
+	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -20,28 +22,46 @@ func insertTempUser(t *testing.T, username, email, password string) {
 }
 
 func Test_authServer_Login(t *testing.T) {
+	// InMemroy MongoDB
+	mongoServer, err := memongo.Start("4.0.5")
+	assert.NoError(t, err)
+	defer mongoServer.Stop()
 
 	// Insert our temp user
 	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
 
 	server := AuthServer{}
-	_, err := server.Login(context.Background(), &pb.LoginRequest{Username: "incidrthreat", Email: "incidrthreat@gmail.com", Password: "incidrthreatpass"})
+
+	// Username, email, and password correct
+	_, err = server.Login(context.Background(), &pb.LoginRequest{Username: "incidrthreat", Email: "incidrthreat@gmail.com", Password: "incidrthreatpass"})
 	if err != nil {
 		t.Error("1. An error was returned: ", err.Error())
 	}
 
-	_, err = server.Login(context.Background(), &pb.LoginRequest{Username: "incidrthreat@gmail.com", Password: "notincidrthreatpass"})
+	// Username with wrong password
+	_, err = server.Login(context.Background(), &pb.LoginRequest{Username: "incidrthreat", Password: "notincidrthreatpass"})
 	if err == nil {
-		t.Error("2. Error was nil")
+		t.Error("2. Password should be incorrect")
 	}
 
-	_, err = server.Login(context.Background(), &pb.LoginRequest{Username: "incidrthreat", Password: "incidrthreatpass"})
+	// Email login with correct password
+	_, err = server.Login(context.Background(), &pb.LoginRequest{Email: "incidrthreat@gmail.com", Password: "incidrthreatpass"})
 	if err != nil {
 		t.Error("3. An error was returned: ", err.Error())
+	}
+
+	// Wrong Email with correct password
+	_, err = server.Login(context.Background(), &pb.LoginRequest{Email: "notincidrthreat@gmail.com", Password: "incidrthreatpass"})
+	if err == nil {
+		t.Error("4. Email should be incorrect and return an error.")
 	}
 }
 
 func Test_authServer_UsernameUsed(t *testing.T) {
+	// InMemroy MongoDB
+	mongoServer, err := memongo.Start("4.0.5")
+	assert.NoError(t, err)
+	defer mongoServer.Stop()
 
 	// Insert our temp user
 	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
