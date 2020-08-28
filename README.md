@@ -16,7 +16,7 @@ And then test
 ❯ grpcurl --plaintext -d '{ "username": "kkweon", "email": "kkweon@gmail.com", "password": "password12345" }' 0.0.0.0:9000 protos.authservice.AuthService/Register
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoie1wiSURcIjpcIjVmNDVlMjg2NjZkMzAyYWE5YTE1NTU0OVwiLFwiVXNlcm5hbWVcIjpcImtrd2VvblwiLFwiUGFzc3dvcmRcIjpcIiQyYSQxMCRRLlJiTzBkR3NJWjFFZTM0NzFTOS91SXU3NnNpMVRzOWJOZy42bHpCb05JMDNndzJIQ3lPLlwiLFwiRW1haWxcIjpcImtrd2VvbkBnbWFpbC5jb21cIixcIkFkbWluXCI6ZmFsc2V9In0.ODKqn3gpR3IA-FXBS_LlSWXu5t0mfupV7WiQRcgQPFE"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsImV4cCI6MTU5ODYwMTExMiwidXNlciI6Imtrd2VvbiJ9.T12xX4oVpmLmctiltaXaS44RPH53t91stABOIAnZjgE"
 }
 ```
 
