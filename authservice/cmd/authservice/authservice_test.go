@@ -13,10 +13,10 @@ import (
 )
 
 // Helper method to insert a temp user
-func insertTempUser(t *testing.T, username, email, password string) {
+func insertTempUser(t *testing.T, username, email, password, testdburl string) {
 	t.Helper()
 	// Connect and create temp user, email, and password
-	models.ConnectToTestDB()
+	models.ConnectToTestDB(testdburl)
 	pw, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	models.Db.Collection("user").InsertOne(context.Background(), models.UserInMongoDb{ID: primitive.NewObjectID(), Email: email, Username: username, Password: string(pw)})
 }
@@ -28,7 +28,7 @@ func Test_authServer_Login(t *testing.T) {
 	defer mongoServer.Stop()
 
 	// Insert our temp user
-	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
+	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass", mongoServer.URIWithRandomDB())
 
 	server := AuthServer{}
 
@@ -64,7 +64,7 @@ func Test_authServer_UsernameUsed(t *testing.T) {
 	defer mongoServer.Stop()
 
 	// Insert our temp user
-	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass")
+	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass", mongoServer.URIWithRandomDB())
 
 	server := AuthServer{}
 
