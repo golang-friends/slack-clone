@@ -26,9 +26,10 @@ func main() {
 	log.Println("Connected to Database")
 
 	server := grpc.NewServer()
-	pb.RegisterAuthServiceServer(server, &authservice.AuthServer{})
+	pb.RegisterAuthServiceServer(server, authservice.NewAuthServer(config))
 
-	// reflection - advertises gRPC services
+	// Advertises gRPC services for dev env
+	// Disable in production
 	reflection.Register(server)
 
 	// creates gRPC listener
