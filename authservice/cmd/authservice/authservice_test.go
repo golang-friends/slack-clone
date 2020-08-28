@@ -2,6 +2,7 @@ package authservice
 
 import (
 	"context"
+	"regexp"
 	"testing"
 
 	"github.com/benweissmann/memongo"
@@ -119,9 +120,60 @@ func Test_authServer_EmailUsed(t *testing.T) {
 	if res.GetUsed() {
 		t.Error("3. User name is not used, should have returned false")
 	}
-
 }
 
-// TODO
+func Test_authService_Register(t *testing.T) {
+	// InMemroy MongoDB
+	mongoServer, err := memongo.Start("4.0.5")
+	assert.NoError(t, err)
+	defer mongoServer.Stop()
 
-// Test Register
+	server := AuthServer{}
+
+	insertTempUser(t, "incidrthreat", "incidrthreat@gmail.com", "incidrthreatpass", mongoServer.URIWithRandomDB())
+	// Testing: Username in use
+	_, err = server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreatTEST@gmail.com", Username: "incidrthreat", Password: "incidrthreatpass"})
+	if err.Error() != "Username in use" {
+		t.Error("1. An error was returned")
+	}
+	// Testing: Email in use
+	_, err = server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreat@gmail.com", Username: "incidrTEST1", Password: "incidrthreatpass"})
+	// We entered an email that was already in use, server should have responded with an error
+	if err.Error() != "Email in use" {
+		t.Error("2. An error was returned")
+	}
+	// Testing: Invalid Email
+	_, err = server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreat", Username: "incidrTEST2", Password: "incidrthreatpass"})
+	// We entered an email that was already in use, server should have responded with an error
+	if err.Error() != "That is not a valid email" {
+		t.Error("3. An error was returned")
+	}
+	// Testing: Invalid Username
+	_, err = server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreatTEST3@gmail.com", Username: "inc", Password: "incidrthreatpass"})
+	// We entered an invalid username, server should have responded with an error
+	if err.Error() != "Username must be longer than 4 characters" {
+		t.Error("4. An error was returned")
+	}
+	// Testing: Invalid Password
+	_, err = server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreatTEST4@gmail.com", Username: "incidrTEST4", Password: "incidr"})
+	// We entered an invalid password, server should have responded with an error
+	if err.Error() != "Password should be longer than 10 characters" {
+		t.Error("5. An error was returned")
+	}
+	// Testing: Token Response
+	res, err := server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreatTEST5@gmail.com", Username: "incidrTEST5", Password: "incidrtestpasword"})
+	// We submitted a valid registration, server should have reported no errors
+	if err != nil {
+		t.Error("6. An error was returned")
+	}
+	// Check that the token is not empty
+	if res.GetToken() != "" {
+		// Check that the token matches our regex
+		tokenRegEx, _ := regexp.MatchString("^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$", res.GetToken())
+		if !tokenRegEx {
+			t.Error("7. Invalid token returned")
+		}
+	} else {
+		t.Error("8. No token returned")
+	}
+}
