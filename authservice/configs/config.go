@@ -11,8 +11,7 @@ import (
 type Configuration struct {
 	ListenInterface string   `json:"listen_interface"`
 	DB              Database `json:"database"`
-	JWTSecret       string   `json:"jwt_secret"`
-	Perf            int      `json:"perf"`
+	JWTData         JWT      `json:"jwt"`
 }
 
 // Database struct - config for the database
@@ -21,6 +20,12 @@ type Database struct {
 	DBName string `json:"dbname"`
 	DBUser string `json:"dbuser"`
 	DBPass string `json:"dbpassword"`
+}
+
+// JWT struct - config for JSON Web Token
+type JWT struct {
+	Secret     string `json:"secret"`
+	ExpiryTime int    `json:"expiry_time"`
 }
 
 // ConfigFromFile parses the given file and returns the config
