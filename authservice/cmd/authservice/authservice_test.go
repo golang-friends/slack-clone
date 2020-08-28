@@ -161,19 +161,19 @@ func Test_authService_Register(t *testing.T) {
 		t.Error("5. An error was returned")
 	}
 	// Testing: Token Response
-	res, err := server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreatTEST5@gmail.com", Username: "incidrTEST5", Password: "incidr"})
+	res, err := server.Register(context.Background(), &pb.RegisterRequest{Email: "incidrthreatTEST5@gmail.com", Username: "incidrTEST5", Password: "incidrtestpasword"})
 	// We submitted a valid registration, server should have reported no errors
 	if err != nil {
-		t.Error("5. An error was returned")
+		t.Error("6. An error was returned")
 	}
 	// Check that the token is not empty
 	if res.GetToken() != "" {
 		// Check that the token matches our regex
 		tokenRegEx, _ := regexp.MatchString("^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$", res.Token)
 		if !tokenRegEx {
-			t.Error("6. Invalid token returned")
+			t.Error("7. Invalid token returned")
 		}
 	} else {
-		t.Error("7. No token returned")
+		t.Error("8. No token returned")
 	}
 }
