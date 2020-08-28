@@ -1,16 +1,14 @@
 package models
 
 import (
-	"encoding/json"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
-
-	"github.com/golang-friends/slack-clone/authservice/configs"
 
 	"github.com/dgrijalva/jwt-go"
 )
 
-// NilUser ...
+// NilUser ...0
 var NilUser UserInMongoDb
 
 // UserInMongoDb ...
@@ -23,13 +21,13 @@ type UserInMongoDb struct {
 }
 
 // GetToken ...
-func (u UserInMongoDb) GetToken() string {
-	var conf configs.Configuration
-	byteSlc, _ := json.Marshal(u)
+func (u UserInMongoDb) GetToken(jwtSecret []byte, expiry int) string {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"data": string(byteSlc),
+		"user":  u.Username,
+		"admin": u.Admin,
+		"exp":   time.Now().Add(time.Minute * time.Duration(expiry)).Unix(),
 	})
 
-	tokenString, _ := token.SignedString([]byte(conf.JWTSecret))
+	tokenString, _ := token.SignedString(jwtSecret)
 	return tokenString
 }
