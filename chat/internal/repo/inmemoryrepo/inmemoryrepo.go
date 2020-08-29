@@ -8,18 +8,21 @@ import (
 	"sync"
 )
 
-type inmemoryRepo struct {
+// InMemoryRepo is the implementation of MessageRepository.
+type InMemoryRepo struct {
 	messages []*chatpb.Message
 	sync.RWMutex
 }
 
-func (i *inmemoryRepo) GetAllMessage() ([]*chatpb.Message, error) {
+// GetAllMessages returns all messages in the memory.
+func (i *InMemoryRepo) GetAllMessages() ([]*chatpb.Message, error) {
 	i.RLock()
 	defer i.RUnlock()
 	return i.messages, nil
 }
 
-func (i *inmemoryRepo) AddNewMessage(message *chatpb.Message) (*chatpb.Message, error) {
+// AddNewMessage will create a new message when received.
+func (i *InMemoryRepo) AddNewMessage(message *chatpb.Message) (*chatpb.Message, error) {
 	randomID, _ := uuid.GenerateUUID()
 	message.MessageId = randomID
 
@@ -30,7 +33,8 @@ func (i *inmemoryRepo) AddNewMessage(message *chatpb.Message) (*chatpb.Message, 
 	return message, nil
 }
 
-func (i *inmemoryRepo) UpdateMessage(message *chatpb.Message) (*chatpb.Message, error) {
+// UpdateMessage will update the message based on the message get id.
+func (i *InMemoryRepo) UpdateMessage(message *chatpb.Message) (*chatpb.Message, error) {
 	i.Lock()
 	defer i.Unlock()
 	for idx, msg := range i.messages {
@@ -43,6 +47,7 @@ func (i *inmemoryRepo) UpdateMessage(message *chatpb.Message) (*chatpb.Message, 
 	return nil, fmt.Errorf("unable to ffnd the message: %+v", message)
 }
 
-func NewInmemoryRepo() *inmemoryRepo {
-	return &inmemoryRepo{}
+// NewInMemoryRepo is the factory for InMemoryRepo.
+func NewInMemoryRepo() *InMemoryRepo {
+	return &InMemoryRepo{}
 }

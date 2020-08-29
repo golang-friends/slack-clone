@@ -4,22 +4,27 @@ import (
 	"github.com/golang-friends/slack-clone/chat/protos/chatpb"
 )
 
-type mongoDbRepo struct {
+// MongoDBRepo is the implementation of MessageRepository.
+type MongoDBRepo struct {
 
 }
 
-func (m *mongoDbRepo) GetAllMessage() ([]*chatpb.Message, error) {
+// GetAllMessages not implemented.
+func (m *MongoDBRepo) GetAllMessages() ([]*chatpb.Message, error) {
 	panic("implement me")
 }
 
-func (m *mongoDbRepo) AddNewMessage(message *chatpb.Message) (*chatpb.Message, error) {
+// AddNewMessage not implemented.
+func (m *MongoDBRepo) AddNewMessage(message *chatpb.Message) (*chatpb.Message, error) {
 	panic("implement me")
 }
 
-func (m *mongoDbRepo) UpdateMessage(message *chatpb.Message) (*chatpb.Message, error) {
+// UpdateMessage not implemented.
+func (m *MongoDBRepo) UpdateMessage(message *chatpb.Message) (*chatpb.Message, error) {
 	panic("implement me")
 }
 
-func NewMongoDbRepo() *mongoDbRepo {
-	return &mongoDbRepo{}
+// NewMongoDBRepo is the factory function for MongoDBRepo.
+func NewMongoDBRepo() *MongoDBRepo {
+	return &MongoDBRepo{}
 }

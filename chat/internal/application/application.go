@@ -11,11 +11,13 @@ import (
 	"net"
 )
 
+// Application is the Application struct to deal with gRPC server.
 type Application struct {
 	cfg  *config.Config
 	repo chatservice.MessageRepository
 }
 
+// Start starts the server and listens to the port.
 func (a *Application) Start() error {
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%v", a.cfg.Port))
 	if err != nil {
@@ -31,6 +33,7 @@ func (a *Application) Start() error {
 	return s.Serve(lis)
 }
 
+// NewApplication is the main factory function for the Application.
 func NewApplication(config *config.Config, repo chatservice.MessageRepository) *Application {
 	return &Application{cfg: config, repo: repo}
 }

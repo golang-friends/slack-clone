@@ -13,7 +13,7 @@ var rootCmd = &cobra.Command{
 	Short: "chat is the entry point for chatservice",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		config := readConfigFromViper()
-		app := application.NewApplication(config, inmemoryrepo.NewInmemoryRepo())
+		app := application.NewApplication(config, inmemoryrepo.NewInMemoryRepo())
 		return app.Start()
 	},
 }
@@ -30,6 +30,7 @@ func init() {
 	viper.SetDefault("port", 9001)
 }
 
+// Execute is the main public entry for the server.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		panic(err)

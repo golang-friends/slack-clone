@@ -102,7 +102,7 @@ func (c *chatsubscribeServer) RecvMsg(m interface{}) error {
 
 func newTestServer() *ChatService {
 	return &ChatService{
-		repo:        inmemoryrepo.NewInmemoryRepo(),
+		repo:        inmemoryrepo.NewInMemoryRepo(),
 		connections: nil,
 	}
 }

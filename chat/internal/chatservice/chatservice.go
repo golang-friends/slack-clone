@@ -8,12 +8,15 @@ import (
 	"sync"
 )
 
+// MessageRepository represents Repository that ChatService expects.
+// Each repository should implement the following methods.
 type MessageRepository interface {
-	GetAllMessage() ([]*chatpb.Message, error)
+	GetAllMessages() ([]*chatpb.Message, error)
 	AddNewMessage(message *chatpb.Message) (*chatpb.Message, error)
 	UpdateMessage(message *chatpb.Message) (*chatpb.Message, error)
 }
 
+// ChatService is the implementation of gRPC ChatService.
 type ChatService struct {
 	repo MessageRepository
 
@@ -31,12 +34,15 @@ type ChatService struct {
 	sync.Mutex
 }
 
+// NewChatService returns a new ChatService.
 func NewChatService(repo MessageRepository) *ChatService {
 	return &ChatService{
 		repo:        repo,
 		connections: nil}
 }
 
+// PostMessage is invoked when a user sends a message. Hence, it will create a new message in the repository.
+// In addition, it will broadcast the message to other connected users.
 func (c *ChatService) PostMessage(_ context.Context, request *chatpb.PostMessageRequest) (*chatpb.EmptyResponse, error) {
 	// TODO: Verify the token and retrieve the token
 	newMessage := request.GetMessage()
@@ -51,10 +57,13 @@ func (c *ChatService) PostMessage(_ context.Context, request *chatpb.PostMessage
 	return &chatpb.EmptyResponse{}, nil
 }
 
+// UpdateMessage is invoked when a user modifies the message.
 func (c *ChatService) UpdateMessage(_ context.Context, _ *chatpb.UpdateMessageRequest) (*chatpb.EmptyResponse, error) {
 	panic("implement me")
 }
 
+// Subscribe is the first function to be invoked when a user joins the workspace or the room.
+// It will then store the connection and then later will be invoked when broadcasting messages.
 func (c *ChatService) Subscribe(request *chatpb.SubscribeRequest, server chatpb.ChatService_SubscribeServer) error {
 	// TODO: Verify the token
 	workspaceID := request.GetWorkspaceId()
