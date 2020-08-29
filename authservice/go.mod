@@ -9,6 +9,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/klauspost/compress v1.10.11 // indirect
 	github.com/pkg/errors v0.9.1
+	github.com/spf13/viper v1.7.1 // indirect
 	github.com/stretchr/testify v1.5.1
 	go.mongodb.org/mongo-driver v1.4.0
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a

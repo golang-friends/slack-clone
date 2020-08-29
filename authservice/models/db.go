@@ -6,7 +6,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/golang-friends/slack-clone/authservice/configs"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -24,14 +23,7 @@ type Database struct {
 var Db mongo.Database
 
 // ConnectToDB ...
-func ConnectToDB(conf configs.Configuration) {
-	db := Database{
-		DBURI:      conf.DB.DBURI,
-		DBUser:     conf.DB.DBUser,
-		DBPassword: conf.DB.DBPass,
-		DBName:     conf.DB.DBName,
-	}
-
+func ConnectToDB(db Database) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%s@%s", db.DBUser, db.DBPassword, db.DBURI)))

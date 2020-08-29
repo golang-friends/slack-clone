@@ -6,8 +6,6 @@ import (
 	"log"
 	"regexp"
 
-	"github.com/golang-friends/slack-clone/authservice/configs"
-
 	"github.com/golang-friends/slack-clone/authservice/models"
 	pb "github.com/golang-friends/slack-clone/authservice/protos/authservice"
 	"go.mongodb.org/mongo-driver/bson"
@@ -17,12 +15,13 @@ import (
 
 // AuthServer ...
 type AuthServer struct {
-	config configs.Configuration
+	jwtSecret  []byte
+	expiryTime int
 }
 
 // NewAuthServer is AuthServerFactory
-func NewAuthServer(config configs.Configuration) *AuthServer {
-	return &AuthServer{config}
+func NewAuthServer(jwtSecret string, expiryTime int) *AuthServer {
+	return &AuthServer{jwtSecret: []byte(jwtSecret), expiryTime: expiryTime}
 }
 
 // Login checks db for user info and returns a auth token
@@ -37,7 +36,7 @@ func (as *AuthServer) Login(ctx context.Context, in *pb.LoginRequest) (*pb.AuthR
 		return &pb.AuthResponse{}, errors.New("Wrong credentials provided")
 	}
 
-	return &pb.AuthResponse{Token: user.GetToken([]byte(as.config.JWTData.Secret), as.config.JWTData.ExpiryTime)}, nil
+	return &pb.AuthResponse{Token: user.GetToken(as.jwtSecret, as.expiryTime)}, nil
 }
 
 // Register ...
@@ -81,7 +80,7 @@ func (as *AuthServer) Register(ctx context.Context, in *pb.RegisterRequest) (*pb
 	if err != nil {
 		log.Println("Error insterting new user: ", err.Error())
 	}
-	return &pb.AuthResponse{Token: newUser.GetToken([]byte(as.config.JWTData.Secret), as.config.JWTData.ExpiryTime)}, nil
+	return &pb.AuthResponse{Token: newUser.GetToken(as.jwtSecret, as.expiryTime)}, nil
 
 }
 
