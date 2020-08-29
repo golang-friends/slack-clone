@@ -1,0 +1,9 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  protoc:
+    cmds:
+    - |
+      protoc --go_out=plugins=grpc:. 'protos/chatpb/chat_service.proto'

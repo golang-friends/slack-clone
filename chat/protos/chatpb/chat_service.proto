@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package protos.chat;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "protos/chatpb;chatpb";
+
+service ChatService {
+  rpc PostMessage(PostMessageRequest) returns(EmptyResponse);
+  rpc UpdateMessage(UpdateMessageRequest) returns(EmptyResponse);
+
+  // only server stream is supported in grpc web
+  // (https://github.com/grpc/grpc-web#wire-format-mode)
+  rpc Subscribe(SubscribeRequest) returns(stream SubscribeResponse);
+}
+
+message PostMessageRequest {
+  string token = 1;
+  Message message = 2;
+}
+
+message Message {
+  string message_id = 1;
+  string user_id = 2;
+  string workspace_id = 3;
+  string channel_id = 4;
+  string message = 5;
+  google.protobuf.Timestamp timestamp = 6;
+}
+
+message SubscribeRequest {
+  string token = 1;
+  string workspace_id = 2;
+}
+
+message SubscribeResponse { Message message = 1; }
+
+message EmptyResponse {}
+
+message UpdateMessageRequest {
+  // message_id is the primary key
+  Message new_message = 1;
+}
