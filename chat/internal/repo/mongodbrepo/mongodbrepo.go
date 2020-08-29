@@ -6,7 +6,6 @@ import (
 
 // MongoDBRepo is the implementation of MessageRepository.
 type MongoDBRepo struct {
-
 }
 
 // GetAllMessages not implemented.
