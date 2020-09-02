@@ -7,6 +7,7 @@ require (
 	github.com/benweissmann/memongo v0.1.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/golang/protobuf v1.4.2
+	github.com/google/go-cmp v0.5.0
 	github.com/klauspost/compress v1.10.11 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.5.1

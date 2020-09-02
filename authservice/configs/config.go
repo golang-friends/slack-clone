@@ -3,6 +3,7 @@ package configs
 import (
 	"encoding/json"
 	"io/ioutil"
+	"time"
 
 	"github.com/pkg/errors"
 )
@@ -24,8 +25,13 @@ type Database struct {
 
 // JWT struct - config for JSON Web Token
 type JWT struct {
-	Secret     string `json:"secret"`
-	ExpiryTime int    `json:"expiry_time"`
+	Secret string `json:"secret"`
+	// ExpiryTime in Minutes
+	ExpiryTime int `json:"expiry_time"`
+}
+
+func (j JWT) GetExpiryDuration() time.Duration {
+	return time.Minute * time.Duration(j.ExpiryTime)
 }
 
 // ConfigFromFile parses the given file and returns the config

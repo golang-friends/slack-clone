@@ -2,39 +2,25 @@ syntax = "proto3";
 
 package protos.authservice;
 
-option go_package = ".;authservice";
+option go_package = "github.com/golang-friends/slack-clone/protos/authservice";
+
+import "protos/authservice/user.proto";
 
 service AuthService {
-    rpc Login(LoginRequest) returns (AuthResponse);
-    rpc Register(RegisterRequest) returns (AuthResponse);
-    rpc UsernameUsed(UsernameUsedRequest) returns (UsedResponse);
-    rpc EmailUsed(EmailUsedRequest) returns (UsedResponse);
+  rpc Login(LoginRequest) returns(AuthResponse);
+  rpc Register(RegisterRequest) returns(AuthResponse);
+  rpc UsernameUsed(UsernameUsedRequest) returns(UsedResponse);
+  rpc EmailUsed(EmailUsedRequest) returns(UsedResponse);
 }
 
-message LoginRequest {
-    string username = 1;
-    string email = 2;
-    string password = 3;
-}
+message LoginRequest { User user = 1; }
 
-message AuthResponse {
-    string token = 1;
-}
+message AuthResponse { string token = 1; }
 
-message RegisterRequest {
-    string username = 1;
-    string email = 2;
-    string password = 3;
-}
+message RegisterRequest { User user = 1; }
 
-message UsernameUsedRequest {
-    string username = 1;
-}
+message UsernameUsedRequest { string username = 1; }
 
-message EmailUsedRequest {
-    string email = 1;
-}
+message EmailUsedRequest { string email = 1; }
 
-message UsedResponse {
-    bool used = 1;
-}
+message UsedResponse { bool used = 1; }
